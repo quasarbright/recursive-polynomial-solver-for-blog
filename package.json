@@ -1,0 +1,19 @@
+{
+  "name": "recursive-polynomial-solver-for-blog",
+  "version": "1.0.0",
+  "description": "A polynomial solver",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Mike Delmonaco",
+  "license": "MIT",
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.5",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2"
+  }
+}

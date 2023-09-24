@@ -1,0 +1,1 @@
+Source code for a polynomial solver written for a blog. Based on [this paper](https://www.researchgate.net/publication/320864673_A_simple_recursive_algorithm_to_find_all_real_roots_of_a_polynomial)
