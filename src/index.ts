@@ -36,6 +36,7 @@ export function degree(p: polynomial): number {
     return degree
 }
 
+// the derivative of the polynomial, as another polynomial
 export function derivative(p: polynomial): polynomial {
     const answer = []
     for(let n = 1; n <= degree(p); n++) {
