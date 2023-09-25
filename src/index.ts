@@ -5,7 +5,7 @@ type Polynomial = number[]
 
 const TOLERANCE = 0.001
 
-// find all zeros of the polynomial, sorted
+// find all zeros of the polynomial, sorted.
 // for p = 0, return no zeros
 export function zeros(p: Polynomial): number[] {
     if(degree(p) == 0) {
@@ -38,11 +38,7 @@ export function degree(p: Polynomial): number {
 
 // the derivative of the polynomial, as another polynomial
 export function derivative(p: Polynomial): Polynomial {
-    const answer = []
-    for(let n = 1; n <= degree(p); n++) {
-        answer.push(n * p[n])
-    }
-    return answer
+    return p.map((coefficient, degree) => coefficient * degree).slice(1)
 }
 
 // Find zeros between derivative zeros of opposite sign and on derivative zeros
@@ -129,14 +125,15 @@ function findEndZero(p: Polynomial, x: number, direction: number): number {
     return findZeroBetween(p, x, otherX)
 }
 
-// find an x value in the given direction such that there is a sign change between x and that value
+// find an x-value in the given direction such that there is a sign change between x and that value
 function findSignChange(p: Polynomial, x: number, direction: number): number {
+    let step = direction
     let px = evalPolynomial(p, x)
     let otherX, isSignChange
     do {
-        otherX = x + direction
+        otherX = x + step
         isSignChange = px * evalPolynomial(p, otherX) < 0
-        direction *= 2
+        step *= 2
     } while (!isSignChange)
     return otherX
 }
