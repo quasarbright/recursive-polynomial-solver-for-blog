@@ -1,13 +1,13 @@
 // A polynomial solver
 
 // The coefficient of degree i of polynomial p is p[i]
-type polynomial = number[]
+type Polynomial = number[]
 
 const TOLERANCE = 0.001
 
 // find all zeros of the polynomial, sorted
 // for p = 0, return no zeros
-export function zeros(p: polynomial): number[] {
+export function zeros(p: Polynomial): number[] {
     if(degree(p) == 0) {
         return []
     } else if (degree(p) === 1) {
@@ -26,7 +26,7 @@ export function zeros(p: polynomial): number[] {
 }
 
 // the degree of the highest-degree term with non-zero coefficient
-export function degree(p: polynomial): number {
+export function degree(p: Polynomial): number {
     let degree = 0
     for(let n = 0; n < p.length; n++) {
         if(p[n] !== 0) {
@@ -37,7 +37,7 @@ export function degree(p: polynomial): number {
 }
 
 // the derivative of the polynomial, as another polynomial
-export function derivative(p: polynomial): polynomial {
+export function derivative(p: Polynomial): Polynomial {
     const answer = []
     for(let n = 1; n <= degree(p); n++) {
         answer.push(n * p[n])
@@ -46,7 +46,7 @@ export function derivative(p: polynomial): polynomial {
 }
 
 // Find zeros between derivative zeros of opposite sign and on derivative zeros
-function betweenZeros(p: polynomial, derivativeZeros: number[]): number[] {
+function betweenZeros(p: Polynomial, derivativeZeros: number[]): number[] {
     const zeros = []
     for(let i = 0; i < derivativeZeros.length - 1; i++) {
         const left = derivativeZeros[i]
@@ -70,7 +70,7 @@ function betweenZeros(p: polynomial, derivativeZeros: number[]): number[] {
 
 // find a zero of p between the two x values
 // left doesn't actually have to be less than right
-function findZeroBetween(p: polynomial, left: number, right: number): number {
+function findZeroBetween(p: Polynomial, left: number, right: number): number {
     // binary search
     if (evalPolynomial(p, left) * evalPolynomial(p, right) >= 0) {
         throw new Error("no sign change")
@@ -88,12 +88,12 @@ function findZeroBetween(p: polynomial, left: number, right: number): number {
 }
 
 // Is it pretty much a zero?
-function isZero(p: polynomial, x: number): boolean {
+function isZero(p: Polynomial, x: number): boolean {
     return Math.abs(evalPolynomial(p,x)) <= TOLERANCE
 }
 
 // evaluate p(x)
-export function evalPolynomial(p: polynomial, x: number): number {
+export function evalPolynomial(p: Polynomial, x: number): number {
     let answer = 0
     for(let n = 0; n <= degree(p); n++) {
         answer += p[n] * Math.pow(x, n)
@@ -102,7 +102,7 @@ export function evalPolynomial(p: polynomial, x: number): number {
 }
 
 // find zeros outside of the derivative zeros
-function endZeros(p: polynomial, derivativeZeros: number[]): number[] {
+function endZeros(p: Polynomial, derivativeZeros: number[]): number[] {
     if (derivativeZeros.length === 0) {
         return []
     } else {
@@ -124,13 +124,13 @@ function endZeros(p: polynomial, derivativeZeros: number[]): number[] {
 }
 
 // find a zero beyond x in the given direction
-function findEndZero(p: polynomial, x: number, direction: number): number {
+function findEndZero(p: Polynomial, x: number, direction: number): number {
     const otherX = findSignChange(p, x, direction)
     return findZeroBetween(p, x, otherX)
 }
 
 // find an x value in the given direction such that there is a sign change between x and that value
-function findSignChange(p: polynomial, x: number, direction: number): number {
+function findSignChange(p: Polynomial, x: number, direction: number): number {
     let px = evalPolynomial(p, x)
     let otherX, isSignChange
     do {
